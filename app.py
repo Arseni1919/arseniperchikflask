@@ -1,5 +1,7 @@
 # app.py
 from flask import Flask, request, jsonify, render_template, url_for, redirect
+import pandas as pd
+
 app = Flask(__name__)
 
 @app.route('/getmsg/', methods=['GET'])
@@ -41,6 +43,16 @@ def post_something():
             "ERROR": "no name found, please send a name."
         })
 
+@app.route('/data')
+def data():
+    new = pd.read_csv('static/data/real_data_2days_sample.csv')
+    # query = pd.DataFrame(json_vector)
+    data_dict = {}
+    for stock in new:
+        data_dict[stock] = new[stock].values
+        print(data_dict[stock].shape)
+    return render_template('data.html', data=data_dict)
+
 # A welcome message to test our server
 @app.route('/')
 def index():
@@ -49,4 +61,4 @@ def index():
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
     # app.run(threaded=True, port=5000)
-    app.run()
+    app.run(debug=True)

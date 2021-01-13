@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data</title>
+</head>
+<body>
+    {% if data %}
+        <h1>The stocks:</h1>
+        <ul>
+            {% for k,v in data.items() %}
+                <li>{{ k }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
